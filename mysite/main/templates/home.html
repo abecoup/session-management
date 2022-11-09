@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% load session_security_tags %}
+{% load i18n l10n %}
+{% load static %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    Hi {{ user.username }}!
+    <p><a href="{% url 'logout' %}">Log out</a></p>
+
+    {% if request.user.is_authenticated %}
+        <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+        {% include 'session_security/dialog.html' %}
+        <script type="text/javascript" src="{% static 'script.js' %}"></script>
+
+        {% localize off %}
+            <script type="text/javascript">
+                var sessionSecurity = new yourlabs.SessionSecurity({
+                    pingUrl: "{% url 'session_security_ping' %}",
+                    warnAfter: { warn_after },
+                    expireAfter: { expire_after },
+                    confirmFormDiscard: "{% trans 'You have unsaved changes in a form of this page.' %}"
+                });
+            </script>
+        {% endlocalize %}    
+    {% endif %}
+
+{% else %}
+    <p>You are not logged in</p>
+    <a href="{% url 'login' %}">Log in<br></a>
+    <a href="{% url 'signup' %}">New user? Signup here.</a>
+{% endif %}
+{% endblock %}
