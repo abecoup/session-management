@@ -39,8 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'main.apps.MainConfig', # main app
     'crispy_forms', # for better UI forms
-    'crispy_bootstrap5',
-    'session_security'
+    'crispy_bootstrap5'
 ]
 
 MIDDLEWARE = [
@@ -50,8 +49,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'session_security.middleware.SessionSecurityMiddleware'
+    'django.middleware.clickjacking.XFrameOptionsMiddleware'
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -136,8 +134,3 @@ SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 # login/logout redirects
 LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
-
-# Requirement 1
-SESSION_SECURITY_INSECURE = True
-SESSION_SECURITY_WARN_AFTER = 5
-SESSION_SECURITY_EXPIRE_AFTER = 30
