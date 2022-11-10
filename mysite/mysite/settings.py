@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+from datetime import timedelta
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -39,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'main.apps.MainConfig', # main app
     'crispy_forms', # for better UI forms
-    'crispy_bootstrap5'
+    'crispy_bootstrap5',
+    'celery'
 ]
 
 MIDDLEWARE = [
@@ -49,7 +51,8 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware'
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_auto_logout.middleware.auto_logout'
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -65,6 +68,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django_auto_logout.context_processors.auto_logout_client' # auto logout and redirect
             ],
         },
     },
@@ -134,3 +138,10 @@ SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 # login/logout redirects
 LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
+
+
+AUTO_LOGOUT = {
+    'IDLE_TIME': timedelta(minutes=0.1),
+    'REDIRECT_TO_LOGIN_IMMEDIATELY': True,
+    'SESSION_TIME': 5 * 60, # 5 minutes total session time
+}
