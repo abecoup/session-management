@@ -28,12 +28,12 @@ In-activity defined:
 
 Potential pseudo-code:
 
-`IF (ANY mouse/key/scroll event occurs) OR (a new request is made):
-    session.set_session_timer(settings.SESSION_COOKIE_AGE)
-ELSE:
-    // they are inactive here
-    IF session_timer == 3 minutes (few minutes before expiry):
-        alert user, allow extension of session time
+`IF (ANY mouse/key/scroll event occurs) OR (a new request is made): \
+    session.set_session_timer(settings.SESSION_COOKIE_AGE) \
+ELSE: \
+    // they are inactive here \
+    IF session_timer == 3 minutes (few minutes before expiry): \
+        alert user, allow extension of session time \
         // when this alert is open, mouse/key/scroll events should not influence the session timer.`
         
 As a note, we should only be checking for mouse/key/scroll events every so often. It would be ineffecient to be reseting the session timer after EVERY event continously. Could add events as they occur into momentary list, check only every 5-10 seconds to see if its empty. If it is empty, we just continue to let the session timer go down. If it isnt empty, we simply reset the session timer to max again and empty the list. This way we are only ever using a small amount of momentary storage to increase our performance significantly. 
