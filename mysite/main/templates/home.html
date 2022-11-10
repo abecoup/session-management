@@ -6,12 +6,23 @@
 {% if user.is_authenticated %}
 
     Hi {{ user.username }}!
+
     <p><a href="{% url 'logout' %}">Log out</a></p>
+
     {{ redirect_to_login_immediately }}
-    
+
 {% else %}
+    {{ redirect_to_login_immediately }}
     <p>You are not logged in</p>
+
     <a href="{% url 'login' %}">Log in<br></a>
     <a href="{% url 'signup' %}">New user? Signup here.</a>
+
+    {% for message in messages %}
+        <div>
+            <br>
+            {{ message }}
+        </div>
+    {% endfor %}
 {% endif %}
 {% endblock %}

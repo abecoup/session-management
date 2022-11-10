@@ -139,9 +139,12 @@ SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
 
-
 AUTO_LOGOUT = {
-    'IDLE_TIME': timedelta(minutes=0.1),
+    'IDLE_TIME': 10, # checks for activity
     'REDIRECT_TO_LOGIN_IMMEDIATELY': True,
-    'SESSION_TIME': 5 * 60, # 5 minutes total session time
+    'MESSAGE': 'The session has expired. Please login again to continue.',
 }
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_COOKIE_AGE = 10 # set just 10 seconds to test
+SESSION_SAVE_EVERY_REQUEST = True
